@@ -1,0 +1,193 @@
+do
+    {
+        printf("Menu(ketik Angka):\n1.Transaksi Bulanan\n2.Laporan Data\n3.Informasi Laporan tagihan\n4.Laporan jumlah pendapatan bulanan\n5.Laporan siswa nunggak per bulan tertentu\n6.Laporan riwayat pembayaran siswa\n7.Keluar\nMasukkan pilihan:");
+        cin >> choice;
+        switch (choice)
+        {
+        case 1:
+        {
+            int verif = 0;
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 2; j < 9; j++)
+                {
+                    if (data[i][j] == "-")
+                    {
+                        verif = 1;
+                    }
+                };
+            }
+            if (verif == 1)
+            {
+                cout << "Data siswa yang belum membayar SPP: " << endl;
+                int orang;
+                int urut = 1;
+                int bulan;
+                int verval = 0;
+                for (int i = 0; i < 2; i++)
+                {
+                    cout << i + 1 << "." << data[i][1];
+                    cout << endl;
+                }
+                cout << "Pilih orang yang melakukan transaksi:";
+                cin >> orang;
+                for (int j = 3; j < 9; j++)
+                {
+                    if (data[orang - 1][j] == "-")
+                    {
+                        cout << "-" << setw(5) << "Bulan ke " << j - 2 << ",";
+                        cout << endl;
+                        verval = 1;
+                    }
+                }
+                if (verval == 1)
+                {
+                    cout << "Pilih bulan yang akan dimasukkan:";
+                    cin >> bulan;
+                    data[orang - 1][bulan + 2] = "120000";
+                }
+                else
+                {
+                    cout << "Maaf siswa ini telah membayar semua SPP" << endl;
+                }
+            }
+            else
+            {
+                cout << "Maaf semua siswa sudah membayar SPP" << endl;
+            }
+        }
+        break;
+
+        case 2:
+            printf("Data Saat ini\n");
+            cout << left << setw(nameWidth) << setfill(separator) << "No";
+            cout << left << setw(nameWidth) << setfill(separator) << "Nama";
+            cout << left << setw(nameWidth) << setfill(separator) << "Kelas";
+            cout << left << setw(numWidth) << setfill(separator) << "Bulan 1";
+            cout << left << setw(numWidth) << setfill(separator) << "Bulan 2";
+            cout << left << setw(numWidth) << setfill(separator) << "Bulan 3";
+            cout << left << setw(numWidth) << setfill(separator) << "Bulan 4";
+            cout << left << setw(numWidth) << setfill(separator) << "Bulan 5";
+            cout << left << setw(numWidth) << setfill(separator) << "Bulan 6";
+            cout << endl;
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    cout << left << setw(nameWidth) << setfill(separator) << data[i][j];
+                };
+                for (int j = 2; j < 9; j++)
+                {
+                    if (data[i][j] == "-")
+                    {
+                        cout << left << setw(numWidthN) << setfill(separator) << data[i][j];
+                    }
+                    else
+                    {
+                        cout << left << setw(numWidthT) << setfill(separator) << data[i][j];
+                    }
+                };
+                cout << endl;
+            }
+            break;
+
+        case 3:
+        {
+            int orang;
+            int verval;
+            int jumlah;
+            for (int i = 0; i < 2; i++)
+            {
+                cout << i + 1 << "." << data[i][1];
+                cout << endl;
+            }
+            cout << "Pilih orang yang ingin di cek:";
+            cin >> orang;
+            for (int j = 3; j < 9; j++)
+            {
+                if (data[orang - 1][j] == "-")
+                {
+                    cout << "-" << setw(5) << "Bulan ke " << j - 2 << ",";
+                    cout << endl;
+                    jumlah = jumlah + 120000;
+                }
+            }
+            if (jumlah != 0)
+            {
+                cout << "Total tagihan: " << jumlah << endl;
+            }
+            else
+            {
+                cout << "Tidak ada tagihan" << endl;
+            }
+        }
+        break;
+        case 4:
+        {
+            for (int j = 3; j < 9; j++)
+            {
+                int jumlah = 0;
+                for (int i = 0; i < 2; i++)
+                {
+
+                    if (data[i][j] == "120000")
+                    {
+                        jumlah = jumlah + 120000;
+                    }
+                }
+                cout << "Bulan ke " << j - 2 << ": " << jumlah << endl;
+            }
+        }
+        break;
+        case 5:
+        {
+            for (int j = 3; j < 9; j++)
+            {
+                cout << "Bulan ke " << j - 2 << ":";
+                for (int i = 0; i < 2; i++)
+                {
+
+                    if (data[i][j] == "-")
+                    {
+                        cout << data[i][1] << ", ";
+                    }
+                }
+                cout << endl;
+            }
+        }
+        break;
+        case 6:
+        {
+            int orang;
+            for (int i = 0; i < 2; i++)
+            {
+                cout << i + 1 << "." << data[i][1];
+                cout << endl;
+            }
+            cout << "Pilih siswa yang ingin di cek: ";
+            cin >> orang;
+            for (int j = 3; j < 9; j++)
+            {
+                if (data[orang - 1][j] == "120000")
+                {
+                    cout << "-" << setw(5) << "Bulan ke " << j - 2 << ": Lunas"
+                         << ",";
+                    cout << endl;
+                }
+                else
+                {
+                    cout << "-" << setw(5) << "Bulan ke " << j - 2 << ": Nunggak"
+                         << ",";
+                    cout << endl;
+                }
+            }
+        }
+        case 7:
+            cout << "Keluar dari program...";
+            break;
+        default:
+            printf("Mohon masukkan angka valid");
+            break;
+        }
+    } while (choice != 7);
+    return 0;
